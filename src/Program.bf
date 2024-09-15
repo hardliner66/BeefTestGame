@@ -18,7 +18,7 @@ class Program
 		int spacing = 0;
 
 		Rectangle player = Rectangle(400, 280, 40, 40);
-		Rectangle[MAX_BUILDINGS] buildings = . { };
+		Rectangle[MAX_BUILDINGS] buildings = .();
 		Color[MAX_BUILDINGS] buildColors = .();
 
 		for (int i = 0; i < MAX_BUILDINGS; i++)
