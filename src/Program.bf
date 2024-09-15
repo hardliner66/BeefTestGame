@@ -5,28 +5,27 @@ using static RaylibBeef.KeyboardKey;
 
 namespace TestGame;
 
-class Game
+class Program
 {
 	const int MAX_BUILDINGS = 100;
-	const int screenWidth = 800;
-	const int screenHeight = 450;
-
-	public void Run()
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 450;
+	public static int Main(String[] args)
 	{
-		InitWindow(800, 600, scope $"Raylib Beef {RAYLIB_VERSION_MAJOR}.{RAYLIB_VERSION_MINOR}.{RAYLIB_VERSION_PATCH}");
+		InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, scope $"Raylib Beef {RAYLIB_VERSION_MAJOR}.{RAYLIB_VERSION_MINOR}.{RAYLIB_VERSION_PATCH}");
 		InitAudioDevice();
 
 		int spacing = 0;
 
 		Rectangle player = Rectangle(400, 280, 40, 40);
-		Rectangle[MAX_BUILDINGS] buildings;
-		Color[MAX_BUILDINGS] buildColors;
+		Rectangle[MAX_BUILDINGS] buildings = . { };
+		Color[MAX_BUILDINGS] buildColors = .();
 
 		for (int i = 0; i < MAX_BUILDINGS; i++)
 		{
 			buildings[i].width = (float)GetRandomValue(50, 200);
 			buildings[i].height = (float)GetRandomValue(100, 800);
-			buildings[i].y = screenHeight - 130.0f - buildings[i].height;
+			buildings[i].y = SCREEN_HEIGHT - 130.0f - buildings[i].height;
 			buildings[i].x = -6000.0f + spacing;
 
 			spacing += (int)buildings[i].width;
@@ -36,7 +35,7 @@ class Game
 
 		Camera2D camera;
 		camera.target = Vector2(player.x + 20.0f, player.y + 20.0f);
-		camera.offset = Vector2(screenWidth / 2.0f, screenHeight / 2.0f);
+		camera.offset = Vector2(SCREEN_WIDTH / 2.0f, SCREEN_HEIGHT / 2.0f);
 		camera.rotation = 0.0f;
 		camera.zoom = 1.0f;
 
@@ -80,17 +79,17 @@ class Game
 
 			DrawRectangleRec(player, RED);
 
-			DrawLine((int32)camera.target.x, -screenHeight * 10, (int32)camera.target.x, screenHeight * 10, GREEN);
-			DrawLine(-screenWidth * 10, (int32)camera.target.y, screenWidth * 10, (int32)camera.target.y, GREEN);
+			DrawLine((int32)camera.target.x, -SCREEN_HEIGHT * 10, (int32)camera.target.x, SCREEN_HEIGHT * 10, GREEN);
+			DrawLine(-SCREEN_WIDTH * 10, (int32)camera.target.y, SCREEN_WIDTH * 10, (int32)camera.target.y, GREEN);
 
 			EndMode2D();
 
 			DrawText("SCREEN AREA", 640, 10, 20, RED);
 
-			DrawRectangle(0, 0, screenWidth, 5, RED);
-			DrawRectangle(0, 5, 5, screenHeight - 10, RED);
-			DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, RED);
-			DrawRectangle(0, screenHeight - 5, screenWidth, 5, RED);
+			DrawRectangle(0, 0, SCREEN_WIDTH, 5, RED);
+			DrawRectangle(0, 5, 5, SCREEN_HEIGHT - 10, RED);
+			DrawRectangle(SCREEN_WIDTH - 5, 5, 5, SCREEN_HEIGHT - 10, RED);
+			DrawRectangle(0, SCREEN_HEIGHT - 5, SCREEN_WIDTH, 5, RED);
 
 			DrawRectangle(10, 10, 250, 113, Fade(SKYBLUE, 0.5f));
 			DrawRectangleLines(10, 10, 250, 113, BLUE);
@@ -108,17 +107,6 @@ class Game
 
 		CloseAudioDevice();
 		CloseWindow();
-	}
-}
-
-class Program
-{
-	public static int Main(String[] args)
-	{
-		Game game = new Game();
-		defer delete game;
-
-		game.Run();
 
 		return 0;
 	}
