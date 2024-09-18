@@ -26,7 +26,7 @@ TargetDirectory = "$(ProjectDir)\\dist\\"
 OtherLinkFlags = "$(LinkFlags) --use-preload-plugins --preload-file ../assets@/assets --shell-file $(ProjectDir)\\template.html -o index.html -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY -Os -DPLATFORM_WEB"
 CLibType = "Static"
 BeefLibType = "Static"
-PostBuildCmds = ["butler push $(ProjectDir)\\dist\\ iamhardliner/test:wasm"]
+PostBuildCmds = ["butler push $(ProjectDir)\\dist\\ iamhardliner/testgame:wasm"]
 PreprocessorMacros = ["RELEASE"]
 OptimizationLevel = "O3"
 LTOType = "None"
