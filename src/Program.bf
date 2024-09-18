@@ -42,12 +42,11 @@ class Program
 		InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, scope $"Raylib Beef {RAYLIB_VERSION_MAJOR}.{RAYLIB_VERSION_MINOR}.{RAYLIB_VERSION_PATCH}");
 		InitAudioDevice();
 
-
 		let tileset = LoadTexture("assets/tiles.png");
 		let sprite_width_tiles = (float)tileset.width / 6;
 
 		var player = Player(SpriteSheet(LoadTexture("assets/main.png"), 8, 4, 1));
-
+		defer UnloadTexture(player.sprite_sheet.texture);
 
 		Camera2D camera;
 		camera.target = Vector2(player.position.x + player.sprite_sheet.sprite_width_half, player.position.y + player.sprite_sheet.sprite_width_half);
