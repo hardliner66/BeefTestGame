@@ -1,5 +1,63 @@
 FileVersion = 1
-Projects = { TestGame = { Path = "." }, raylib-beef = { Path = "extern/raylib-beef/raylib-beef" } }
+Projects = {TestGame = {Path = "."}, raylib-beef = {Path = "extern/raylib-beef/raylib-beef"}}
 
 [Workspace]
 StartupProject = "TestGame"
+
+[Configs.Debug.wasm32]
+AllocType = "CRT"
+EnableObjectDebugFlags = false
+EmitObjectAccessCheck = false
+
+[Configs.Publish.Win32]
+Toolset = "LLVM"
+BfOptimizationLevel = "O2"
+LTOType = "Thin"
+AllocType = "CRT"
+RuntimeChecks = false
+EmitDynamicCastCheck = false
+EnableObjectDebugFlags = false
+EmitObjectAccessCheck = false
+EnableRealtimeLeakCheck = false
+AllowHotSwapping = false
+IncrementalBuild = false
+COptimizationLevel = "O2"
+ConfigSelections = {TestGame = {Config = "Release"}, raylib-beef = {Config = "Release"}, corlib = {Config = "Release"}}
+
+[Configs.Publish.Win64]
+Toolset = "LLVM"
+BfOptimizationLevel = "O2"
+LTOType = "Thin"
+AllocType = "CRT"
+RuntimeChecks = false
+EmitDynamicCastCheck = false
+EnableObjectDebugFlags = false
+EmitObjectAccessCheck = false
+EnableRealtimeLeakCheck = false
+AllowHotSwapping = false
+IncrementalBuild = false
+COptimizationLevel = "O2"
+ConfigSelections = {TestGame = {Config = "Release"}, raylib-beef = {Config = "Release"}, corlib = {Config = "Release"}}
+
+[Configs.Publish.wasm32]
+BfOptimizationLevel = "O2"
+AllocType = "CRT"
+EmitDebugInfo = "No"
+RuntimeChecks = false
+EmitDynamicCastCheck = false
+EnableObjectDebugFlags = false
+EmitObjectAccessCheck = false
+IncrementalBuild = false
+COptimizationLevel = "O2"
+ConfigSelections = {raylib-beef = {Config = "Release"}, corlib = {Config = "Release"}}
+
+[Configs.Publish.wasm]
+BfOptimizationLevel = "O2"
+AllocType = "CRT"
+RuntimeChecks = false
+EmitDynamicCastCheck = false
+EnableObjectDebugFlags = false
+EmitObjectAccessCheck = false
+IncrementalBuild = false
+COptimizationLevel = "O2"
+ConfigSelections = {TestGame = {Config = "Release"}, raylib-beef = {Config = "Release"}, corlib = {Config = "Release"}}

@@ -15,9 +15,6 @@ struct SpriteSheet {
 	public var frame_counter = 0;
 	public var current_frame = 0;
 
-	// frame_speed = 8
-	// horizontal_sprite_count = 4
-	// vertical_sprite_count = 1
 	public this(Texture texture, int frame_speed, int horizontal_sprite_count, int vertical_sprite_count) {
 		this.texture = texture;
 		this.frame_speed = frame_speed;

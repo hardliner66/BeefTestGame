@@ -1,7 +1,54 @@
 FileVersion = 1
-Dependencies = {corlib = "*", raylib-beef = "*"}
+Dependencies = {raylib-beef = "*"}
 
 [Project]
 Name = "TestGame"
 TargetType = "BeefGUIApplication"
 StartupObject = "TestGame.Program"
+
+[Configs.Debug.wasm32]
+TargetDirectory = "$(ProjectDir)\\dist\\"
+OtherLinkFlags = "$(LinkFlags) -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY --preload-file $(ProjectDir)\\assets  --shell-file $(ProjectDir)\\template.html -o index.html -O2"
+
+[Configs.Paranoid.wasm32]
+TargetDirectory = "$(ProjectDir)\\dist\\"
+OtherLinkFlags = "$(LinkFlags) -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY --preload-file $(ProjectDir)\\assets  --shell-file $(ProjectDir)\\template.html -o index.html -O2"
+
+[Configs.Publish.Win64]
+CLibType = "Static"
+BeefLibType = "Static"
+PreprocessorMacros = ["RELEASE"]
+OptimizationLevel = "O3"
+LTOType = "Thin"
+
+[Configs.Publish.wasm32]
+TargetDirectory = "$(ProjectDir)\\dist\\"
+OtherLinkFlags = "$(LinkFlags) --use-preload-plugins --preload-file ../assets@/assets --shell-file $(ProjectDir)\\template.html -o index.html -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY -Os -DPLATFORM_WEB"
+CLibType = "Static"
+BeefLibType = "Static"
+PostBuildCmds = ["butler push $(ProjectDir)\\dist\\ iamhardliner/test:wasm"]
+PreprocessorMacros = ["RELEASE"]
+OptimizationLevel = "O3"
+LTOType = "None"
+VectorizeLoops = true
+
+[Configs.Publish.Win32]
+CLibType = "Static"
+BeefLibType = "Static"
+PreprocessorMacros = ["RELEASE"]
+
+[Configs.Release.Win64]
+OptimizationLevel = "O3"
+LTOType = "Thin"
+
+[Configs.Release.wasm32]
+TargetDirectory = "$(ProjectDir)\\dist\\"
+OtherLinkFlags = "$(LinkFlags) -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY --preload-file $(ProjectDir)\\assets  --shell-file $(ProjectDir)\\template.html -o index.html -O2"
+OptimizationLevel = "O3"
+LTOType = "None"
+VectorizeLoops = true
+
+[Configs.Test.wasm32]
+BuildKind = "Normal"
+TargetDirectory = "$(ProjectDir)\\dist\\"
+OtherLinkFlags = "$(LinkFlags) -s TOTAL_STACK=64MB -s INITIAL_MEMORY=128MB -s ASSERTIONS -s DETERMINISTIC=1 -s ASYNCIFY --preload-file $(ProjectDir)\\assets  --shell-file $(ProjectDir)\\template.html -o index.html -O2"
